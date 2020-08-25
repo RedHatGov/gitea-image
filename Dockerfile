@@ -3,19 +3,22 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 
 # Set the Gitea Version to install.
 # Check https://dl.gitea.io/gitea/ for available versions.
-ENV GITEA_VERSION="1.12.3"
-ENV APP_HOME=/home/gitea
-ENV REPO_HOME=/gitea-repositories
+ARG GITEA_VERSION="1.12.3"
+ARG BUILD_DATE=2020-08-25
+
+ENV SONAR_VERSION=$SONAR_VERSION \
+    APP_HOME=/home/gitea \
+    REPO_HOME=/gitea-repositories
 
 LABEL name="Gitea - Git Service" \
       vendor="Gitea" \
       io.k8s.display-name="Gitea - Git Service" \
       io.openshift.expose-services="3000,gitea" \
       io.openshift.tags="gitea" \
-      build-date="2020-08-04" \
+      build-date=$BUILD_DATE \
       version=$GITEA_VERSION \
       release="1" \
-      maintainer="Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>"
+      maintainer="James Harmison <jharmison@redhat.com>"
 
 COPY ./root /
 

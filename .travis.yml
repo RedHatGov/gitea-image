@@ -1,0 +1,14 @@
+
+dist: bionic
+language: minimal
+services:
+  - docker
+env:
+  - GITEA_VERSION=1.12.3
+script:
+  - ./build.sh -b local -d -l -t $GITEA_VERSION -- --build-arg=GITEA_VERSION=$GITEA_VERSION
+deploy:
+  provider: script
+  script: ./build.sh -b quay -d -l -t $GITEA_VERSION -- --build-arg=GITEA_VERSION=$GITEA_VERSION
+  on:
+    branch: master

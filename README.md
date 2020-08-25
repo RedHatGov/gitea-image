@@ -1,5 +1,6 @@
 # Gitea for OpenShift
-Gitea is a Git service. Learn more about it at https://gitea.io/en-US/
+
+Gitea is a Git service. Learn more about it [here](https://gitea.io/en-US/).
 
 Running containers on OpenShift comes with certain security and other requirements. This repository contains:
 
@@ -7,24 +8,10 @@ Running containers on OpenShift comes with certain security and other requiremen
 * The run scripts used in the Docker image
 
 ## Prerequisites
-* An account in an OpenShift 3.5+ environment and a project
 
-* Gitea requires a database to store its information. Provisioning a database is out-of-scope for this repository. If you wish to run the database on OpenShift, it is suggested that you deploy PostgreSQL using persistent storage. More information on the OpenShift PostgreSQL deployment is here:
+* An account in an OpenShift 4.X environment and a project
+* Gitea requires a database to store its information. Provisioning a database is out-of-scope for this repository. If you wish to run the database on OpenShift, it is suggested that you deploy PostgreSQL using persistent storage. More information on the containerized PostgreSQL deployment tested with this project is available [here](https://catalog.redhat.com/software/containers/rhel8/postgresql-10/5ba0ae0ddd19c70b45cbf4cd).
 
-  https://docs.openshift.org/latest/using_images/db_images/postgresql.html
+## Operator Deployment
 
-## Deployment
-Gitea can be easily deployed using the included templates in `openshift` folder. If your have persistent volumes available in your cluster:
-
-```
-oc new-app -f https://raw.githubusercontent.com/wkulhanek/docker-openshift-gitea/master/openshift/gitea-persistent-template.yaml --param=HOSTNAME=gitea-demo.yourdomain.com
-```
-Otherwise:
-```
-oc new-app -f https://raw.githubusercontent.com/wkulhanek/docker-openshift-gitea/master/openshift/gitea-ephemeral-template.yaml --param=HOSTNAME=gitea-demo.yourdomain.com
-```
-
-Note that hostname is required during Gitea installation in order to configure repository URLs correctly.
-
-# Operator Deployment
-A Gitea Operator can be found at https://github.com/wkulhanek/gitea-operator. Operators are the preferred way to deploy applications on Kubernetes.
+A Gitea Operator can be found [here](https://github.com/jharmison-redhat/gitea-operator). Operators are the preferred way to deploy applications on Kubernetes.
