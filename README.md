@@ -14,4 +14,4 @@ Running containers on OpenShift comes with certain security and other requiremen
 
 ## Operator Deployment
 
-A Gitea Operator can be found [here](https://github.com/jharmison-redhat/gitea-operator). Operators are the preferred way to deploy applications on Kubernetes.
+A Gitea Operator can be found [here](https://github.com/RedHatGov/gitea-operator). Operators are the preferred way to deploy applications on Kubernetes.
