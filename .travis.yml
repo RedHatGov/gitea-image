@@ -11,4 +11,4 @@ deploy:
   provider: script
   script: ./build.sh -b quay -d -l -t $GITEA_VERSION -- --build-arg=GITEA_VERSION=$GITEA_VERSION
   on:
-    branch: master
+    branch: main
