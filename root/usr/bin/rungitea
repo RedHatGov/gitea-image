@@ -12,5 +12,18 @@ export USER=gitea
 export USERNAME=gitea
 export HOME=/home/gitea
 
+set -ex
+
+if [ -n "$GITEA_SETUP" ]; then
+    /home/gitea/gitea --config=/home/gitea/conf/app.ini migrate
+    /home/gitea/gitea --config=/home/gitea/conf/app.ini admin create-user \
+        --username "$GITEA_ADMIN_USERNAME" \
+        --password "$GITEA_ADMIN_PASSWORD" \
+        --email "$GITEA_ADMIN_EMAIL" \
+        --access-token --must-change-password=false --admin
+fi
+
+unset GITEA_ADMIN_USERNAME GITEA_ADMIN_PASSWORD GITEA_ADMIN_EMAIL
+
 # Start Gitea's Web Interface
 exec /home/gitea/gitea --config=/home/gitea/conf/app.ini web
