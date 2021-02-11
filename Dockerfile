@@ -13,7 +13,7 @@ ENV GITEA_VERSION=$GITEA_VERSION \
     GITEA_ADMIN_PASSWORD="" \
     GITEA_SETUP=""
 
-LABEL name="Gitea - Git Service" \
+LABEL name="Gitea - Git with a cup of tea" \
       vendor="Gitea" \
       io.k8s.display-name="Gitea - Git Service" \
       io.openshift.expose-services="3000:http,2022:ssh" \
