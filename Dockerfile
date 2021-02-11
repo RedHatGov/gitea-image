@@ -4,7 +4,6 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 # Set the Gitea Version to install.
 # Check https://dl.gitea.io/gitea/ for available versions.
 ARG GITEA_VERSION="1.13.2"
-ARG BUILD_DATE=2021-02-10
 
 ENV GITEA_VERSION=$GITEA_VERSION \
     APP_HOME=/home/gitea \
@@ -19,8 +18,7 @@ LABEL name="Gitea - Git Service" \
       io.k8s.display-name="Gitea - Git Service" \
       io.openshift.expose-services="3000:http,2022:ssh" \
       io.openshift.tags="gitea" \
-      build-date=$BUILD_DATE \
-      version=$GITEA_VERSION \
+      io.gitea.version=$GITEA_VERSION \
       release="1" \
       maintainer="James Harmison <jharmison@redhat.com>"
 
