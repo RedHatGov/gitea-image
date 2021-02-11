@@ -7,16 +7,21 @@ cat /tmp/passwd >/etc/passwd
 rm /tmp/passwd
 
 # Set a few environment variables to make Gitea behave
-export GITEA_WORK_DIR=/home/gitea
 export USER=gitea
 export USERNAME=gitea
 export HOME=/home/gitea
+export GITEA_WORK_DIR=${HOME}
+export GITEA_CONFIG=${GITEA_WORK_DIR}/conf/app.ini
 
 set -ex
 
+if [ ! -f $GITEA_CONFIG ]; then
+    cp $GITEA_WORK_DIR/example.app.ini $GITEA_CONFIG
+fi
+
 if [ -n "$GITEA_SETUP" ]; then
-    /home/gitea/gitea --config=/home/gitea/conf/app.ini migrate
-    /home/gitea/gitea --config=/home/gitea/conf/app.ini admin create-user \
+    $GITEA_WORK_DIR/gitea --config=$GITEA_WORK_DIR/conf/app.ini migrate
+    $GITEA_WORK_DIR/gitea --config=$GITEA_WORK_DIR/conf/app.ini admin create-user \
         --username "$GITEA_ADMIN_USERNAME" \
         --password "$GITEA_ADMIN_PASSWORD" \
         --email "$GITEA_ADMIN_EMAIL" \
@@ -26,4 +31,4 @@ fi
 unset GITEA_ADMIN_USERNAME GITEA_ADMIN_PASSWORD GITEA_ADMIN_EMAIL
 
 # Start Gitea's Web Interface
-exec /home/gitea/gitea --config=/home/gitea/conf/app.ini web
+exec $GITEA_WORK_DIR/gitea --config=$GITEA_WORK_DIR/conf/app.ini web
