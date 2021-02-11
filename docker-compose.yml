@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+
+  gitea:
+    image: quay.io/redhatgov/gitea:latest
+    build:
+      context: .
+    ports:
+      - 3000:3000
+      - 2022:2022
+    volumes:
+      - gitea-data:/gitea-repositories:Z
+      - ./app.ini:/home/gitea/conf/app.ini:Z
+    restart: unless-stopped
+    environment:
+      - GITEA_ADMIN_USERNAME
+      - GITEA_ADMIN_EMAIL
+      - GITEA_ADMIN_PASSWORD
+    depends_on:
+      - gitea-db
+
+  gitea-db:
+    image: docker.io/library/postgres:latest
+    volumes:
+      - gitea-db:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=gitea
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea_password
+
+volumes:
+  gitea-data:
+  gitea-db:
