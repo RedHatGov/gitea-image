@@ -4,7 +4,7 @@ language: minimal
 services:
   - docker
 env:
-  - GITEA_VERSION=1.12.4
+  - GITEA_VERSION=1.13.2
 script:
   - ./build.sh -b local -d -l -t $GITEA_VERSION -- --build-arg=GITEA_VERSION=$GITEA_VERSION
 deploy:
