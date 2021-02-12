@@ -17,6 +17,7 @@ services:
       - GITEA_ADMIN_USERNAME
       - GITEA_ADMIN_EMAIL
       - GITEA_ADMIN_PASSWORD
+      - GITEA_SETUP
     depends_on:
       - gitea-db
 
