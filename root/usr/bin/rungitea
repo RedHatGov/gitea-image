@@ -3,7 +3,7 @@
 # Updated /etc/passwd with current UID of the running container
 grep -v ^gitea /etc/passwd > "/tmp/passwd"
 echo "gitea:x:$(id -u):0:gitea user:/data:/sbin/nologin" >> /tmp/passwd
-cat /tmp/passwd >/etc/passwd
+cat /tmp/passwd > /etc/passwd
 rm /tmp/passwd
 
 # Set a few environment variables to make Gitea behave
