@@ -4,10 +4,12 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 # Set the Gitea Version to install.
 # Check https://dl.gitea.io/gitea/ for available versions.
 ARG GITEA_VERSION="1.13.2"
+ARG APP_HOME=/home/gitea
+ARG REPO_HOME=/gitea-repositories
 
 ENV GITEA_VERSION=$GITEA_VERSION \
-    APP_HOME=/home/gitea \
-    REPO_HOME=/gitea-repositories \
+    APP_HOME=$APP_HOME \
+    REPO_HOME=$REPO_HOME \
     GITEA_ADMIN_USERNAME=administrator \
     GITEA_ADMIN_EMAIL=administrator@gitea.fq.dn \
     GITEA_ADMIN_PASSWORD="" \
