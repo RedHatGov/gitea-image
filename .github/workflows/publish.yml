@@ -29,7 +29,7 @@ jobs:
               -e 's/\(\(\([0-9]\+\)\.[0-9]\+\)\.[0-9]\+\)/\1,\2,\3,/' \
               -e 's/\([^,]\+\),/quay.io\/redhatgov\/gitea:\1,/g' \
               -e 's/^/::set-output name=tags::/' \
-              -e 's/$/quay.io\/redhatgov\/gitea:latest/' && \
+              -e 's/$/quay.io\/redhatgov\/gitea:latest/'
           else
             echo "::set-output name=tags::quay.io\/redhatgov\/gitea:"
             echo "$GITHUB_REF" | cut -d/ -f3- | tr '/' '_'
