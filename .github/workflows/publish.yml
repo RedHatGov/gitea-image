@@ -1,0 +1,40 @@
+name: Publish container image to Quay.io
+
+on:
+  schedule:
+    - cron: '0 1 * * *' # everyday at 1am
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Define version and tags for build
+        id: define-tags
+        run: scripts/gitea-tag.sh
+
+      - name: Login to Quay
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.define-tags.outputs.tags }}
+          build-args: |
+            GITEA_VERSION=${{ steps.define-tags.outputs.version }}
