@@ -18,22 +18,7 @@ jobs:
 
       - name: Define version and tags for build
         id: define-tags
-        run: |
-          gitea_version=$(
-            curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest \
-              | jq -r .tag_name | tr -d 'v'
-          )
-          echo "::setup-output name=version::$gitea_version"
-          if [ "${GITHUB_REF}" == "refs/heads/main" -a "${GITHUB_EVENT_NAME}" != "pull_request" ]; then
-            echo "$gitea_version" | sed \
-              -e 's/\(\(\([0-9]\+\)\.[0-9]\+\)\.[0-9]\+\)/\1,\2,\3,/' \
-              -e 's/\([^,]\+\),/quay.io\/redhatgov\/gitea:\1,/g' \
-              -e 's/^/::set-output name=tags::/' \
-              -e 's/$/quay.io\/redhatgov\/gitea:latest/'
-          else
-            echo -n "::set-output name=tags::quay.io/redhatgov/gitea:"
-            echo "$GITHUB_REF" | cut -d/ -f3- | tr '/' '_'
-          fi
+        run: scripts/gitea-tag.sh
 
       - name: Login to Quay
         if: github.event_name != 'pull_request'
