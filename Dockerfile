@@ -9,6 +9,7 @@ ARG REPO_HOME=/gitea-repositories
 
 ENV GITEA_VERSION=$GITEA_VERSION \
     APP_HOME=$APP_HOME \
+    GITEA_CONFIG=$APP_HOME/conf/app.ini \
     REPO_HOME=$REPO_HOME \
     GITEA_ADMIN_USERNAME=administrator \
     GITEA_ADMIN_EMAIL=administrator@gitea.fq.dn \
