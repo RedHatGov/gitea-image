@@ -20,8 +20,8 @@ if [ ! -f $GITEA_CONFIG ]; then
 fi
 
 if [ -n "$GITEA_SETUP" ]; then
-    $GITEA_WORK_DIR/gitea --config=$GITEA_WORK_DIR/conf/app.ini migrate
-    $GITEA_WORK_DIR/gitea --config=$GITEA_WORK_DIR/conf/app.ini admin create-user \
+    $GITEA_WORK_DIR/gitea --config=$GITEA_CONFIG migrate
+    $GITEA_WORK_DIR/gitea --config=$GITEA_CONFIG admin create-user \
         --username "$GITEA_ADMIN_USERNAME" \
         --password "$GITEA_ADMIN_PASSWORD" \
         --email "$GITEA_ADMIN_EMAIL" \
@@ -31,4 +31,4 @@ fi
 unset GITEA_ADMIN_USERNAME GITEA_ADMIN_PASSWORD GITEA_ADMIN_EMAIL
 
 # Start Gitea's Web Interface
-exec $GITEA_WORK_DIR/gitea --config=$GITEA_WORK_DIR/conf/app.ini web
+exec $GITEA_WORK_DIR/gitea --config=$GITEA_CONFIG web
